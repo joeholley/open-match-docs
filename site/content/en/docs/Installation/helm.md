@@ -143,7 +143,7 @@ The following tables lists the configurable parameters of the Open Match chart a
 ## Troubleshooting
 
 Problem: The core service pods remain in <code>ContainerCreating</code> after installing the helm chart.
-Answer: Open Match needs to be configured, and won't start up unless you provide a `ConfigMap` of configuration parameters.  At the very least, you must include `open-match-customize.enabled=true` and `open-match-customize.evaluator.enabled=true` when installing the chart.
+Answer: Open Match needs to be configured with a [Match Function](https://open-match.dev/site/docs/guides/matchmaker/matchfunction/) and [Evaluator](https://open-match.dev/site/docs/guides/evaluator/), and won't start up unless you provide these. If you'd like to install an example Match Function and Evaluator, you can pass in the `--set open-match-override.enabled=true` flag to `helm install open-match`.
 
 ## What's Next
 
