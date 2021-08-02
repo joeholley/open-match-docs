@@ -29,8 +29,6 @@ helm search repo --versions open-match/open-match
 
 ## Install the Open Match helm chart
 
-
-
 To install the Open Match chart, you can use the `helm install` command. We recommend you install open-match into its own [Kubernetes Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/).
 
 {{< alert title="Note" color="info">}}
@@ -80,10 +78,10 @@ helm uninstall -n open-match open-match
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ## <a name="configuration">Configuration</a>
-You can specify these config parameters at the commandline when running `helm install`, but for most interactive installations we recommend you start with the provided example  [`values.yaml` file](https://github.com/googleforgames/open-match/blob/main/install/helm/open-match/values.yaml), edit only the parts you need, and pass it to the `helm install` command using the `-f <filename>.yaml` command line flag.  
+You can specify  config parameters at the commandline when running `helm install`, but for most interactive installations we recommend you start with the provided example  [`values.yaml` file](https://github.com/googleforgames/open-match/blob/main/install/helm/open-match/values.yaml), edit only the parts you need, and pass it to the `helm install` command using the `-f <filename>.yaml` command line flag.  
 
 
-Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example, this command deploys Open Match to the `open-match` namespace, turns on the telemetry exporter, and deploys Jaeger in addition to the Open Match core services:
+If you do want to specify a parameter as a `helm install` command line flag, the syntax is `--set key=value[,key=value]`. For example, this command deploys Open Match to the `open-match` namespace, turns on the telemetry exporter, and deploys Jaeger in addition to the Open Match core services:
 
 ```bash
 helm install --name open-match --namespace open-match open-match/open-match \
@@ -91,9 +89,9 @@ helm install --name open-match --namespace open-match open-match/open-match \
   --set open-match-telemetry.jaeger.enabled=true
 ```
 
-For more example install commands, check out the [`makefile`](https://github.com/googleforgames/open-match/blob/main/Makefile#L358), which contains several `helm` runs used in the building and testing of the Open Match source code.
+For more example install commands, check out the Open Match source code [`makefile`](https://github.com/googleforgames/open-match/blob/main/Makefile#L358), which contains several `helm install` commands with config parameters specified as flags.
 
-The following tables lists the configurable parameters of the Open Match chart and their default values.
+Here are some of the configurable parameters of the Open Match chart and their default values:
 
 | Parameter                                           | Description                                                                                     | Default                |
 | --------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------- |
@@ -142,8 +140,8 @@ The following tables lists the configurable parameters of the Open Match chart a
 
 ## Troubleshooting
 
-Problem: The core service pods remain in <code>ContainerCreating</code> after installing the helm chart.
-Answer: Open Match needs to be configured with a [Match Function](https://open-match.dev/site/docs/guides/matchmaker/matchfunction/) and [Evaluator](https://open-match.dev/site/docs/guides/evaluator/), and won't start up unless you provide these. If you'd like to install an example Match Function and Evaluator, you can pass in the `--set open-match-override.enabled=true` flag to `helm install open-match`.
+### The core service pods remain in <code>ContainerCreating</code> after installing the helm chart.
+Open Match needs to be configured with a [Match Function](https://open-match.dev/site/docs/guides/matchmaker/matchfunction/) and [Evaluator](https://open-match.dev/site/docs/guides/evaluator/), and won't start up unless you provide these. If you'd like to install an example Match Function and Evaluator, you can pass in the `--set open-match-override.enabled=true` flag to `helm install open-match`.
 
 ## What's Next
 
